@@ -1,15 +1,32 @@
 const name = @typeName(@This());
 
 const std = @import("std");
-const log = std.log;
+const testing = std.testing;
 const assert = std.debug.assert;
+
+test "day01Part1" {
+    const input = @embedFile("input/" ++ name ++ "_part1.txt");
+    const sum = part1Impl(input);
+    try testing.expect(sum == 55108);
+    print(name ++ " part 1: {d}", .{sum});
+}
+
+test "day01Part2" {
+    const input = @embedFile("input/" ++ name ++ "_part1.txt");
+    const sum = part2Impl(input);
+    try testing.expect(sum == 56324);
+    print(name ++ " part 2: {d}", .{sum});
+}
+
+fn print(comptime fmt: []const u8, args: anytype) void {
+    std.log.info(fmt, args);
+}
 
 fn getLines(input: []const u8) std.mem.TokenIterator(u8, .any) {
     return std.mem.tokenizeAny(u8, input, "\r\n");
 }
 
-pub fn part1() void {
-    const input = @embedFile("input/" ++ name ++ "_part1.txt");
+fn part1Impl(input: []const u8) i32 {
     var lines = getLines(input);
     var sum: i32 = 0;
 
@@ -27,12 +44,10 @@ pub fn part1() void {
         sum += 10 * first + last;
     }
 
-    log.info(name ++ " part 1: {d}", .{sum});
+    return sum;
 }
 
-pub fn part2() void {
-    const input = @embedFile("input/" ++ name ++ "_part2.txt");
-
+fn part2Impl(input: []const u8) usize {
     var lines = getLines(input);
     var sum: usize = 0;
 
@@ -85,5 +100,5 @@ pub fn part2() void {
         sum += 10 * first + last;
     }
 
-    log.info(name ++ " part 2: {d}", .{sum});
+    return sum;
 }
