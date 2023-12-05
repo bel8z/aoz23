@@ -4,26 +4,32 @@ const std = @import("std");
 const testing = std.testing;
 const assert = std.debug.assert;
 
-test "day01Part1" {
-    const input = @embedFile("input/" ++ name ++ "_part1.txt");
-    const sum = part1Impl(input);
-    try testing.expect(sum == 55108);
-    print(name ++ " part 1: {d}", .{sum});
-}
-
-test "day01Part2" {
-    const input = @embedFile("input/" ++ name ++ "_part1.txt");
-    const sum = part2Impl(input);
-    try testing.expect(sum == 56324);
-    print(name ++ " part 2: {d}", .{sum});
-}
-
-fn print(comptime fmt: []const u8, args: anytype) void {
+fn log(comptime fmt: []const u8, args: anytype) void {
     std.log.info(fmt, args);
 }
 
 fn getLines(input: []const u8) std.mem.TokenIterator(u8, .any) {
     return std.mem.tokenizeAny(u8, input, "\r\n");
+}
+
+test "day01Part1" {
+    const demo = "1abc2\npqr3stu8vwx\na1b2c3d4e5f\ntreb7uchet";
+    try testing.expect(part1Impl(demo) == 142);
+
+    const input = @embedFile("input/" ++ name ++ "_part1.txt");
+    const sum = part1Impl(input);
+    log(name ++ " part 1: {d}", .{sum});
+    try testing.expect(sum == 55108);
+}
+
+test "day01Part2" {
+    const demo = "two1nine\neightwothree\nabcone2threexyz\nxtwone3four\n4nineeightseven2\nzoneight234\n7pqrstsixteen";
+    try testing.expect(part2Impl(demo) == 281);
+
+    const input = @embedFile("input/" ++ name ++ "_part2.txt");
+    const sum = part2Impl(input);
+    log(name ++ " part 2: {d}", .{sum});
+    try testing.expect(sum == 56324);
 }
 
 fn part1Impl(input: []const u8) i32 {
