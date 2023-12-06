@@ -1,7 +1,7 @@
 const std = @import("std");
 const assert = std.debug.assert;
 
-pub const day = @import("day02.zig");
+pub const day = @import("day03.zig");
 
 pub fn main() void {
     innerMain() catch unreachable;
